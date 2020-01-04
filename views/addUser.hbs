@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Tracker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <style>
+        #myInput {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<jsp:include page="header.jsp" >
+    <jsp:param name="pageName" value="addUser" />
+</jsp:include>
+<c:out value="${requestScope.get('isAdmin')}"/>
+<div class="container">
+    <div class="head">
+        <jsp:include page="navbar.jsp">
+            <jsp:param name="pageName" value="addUser"/>
+        </jsp:include>
+    </div>
+
+    <div style="margin: 100px;">
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addProductModal">Open Modal</button>
+
+        <div class="modal fade" id="addProductModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="addUser" method="post" class="form-inline" >
+                            <label class=mr-sm-2">Name</label>
+                            <input type="text" class="form-control validate" name="firstName"><br>
+                            <label class=mr-sm-2">LastName</label>
+                            <input type="text" class="form-control validate" name="lastName"><br>
+
+                            <label class=mr-sm-2">Username</label>
+                            <input type="text" class="form-control validate" name="username"><br>
+                            <label class=mr-sm-2">Phone Number</label>
+                            <input type="text" class="form-control validate" name="phone"><br>
+
+                            <label class="mr-sm-2">Email address:</label>
+                            <input type="email" class="form-control validate" name="email"><br>
+
+                            <label class="mr-sm-2">Password:</label>
+                            <input type="password" class="form-control validate" name="password"><br>
+
+                            <label class="mr-sm-2">IsAdmin</label>
+                            <select name="item">
+                                <option value="false">false</option>
+                                <option value="true">true</option>
+                            </select>
+
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                            <table id="myTable" class ="table table-stripped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${requestScope.productList}" var="item" varStatus="count">
+                                    <tr class="product">
+                                        <td><input id="cb${count.index}" name="pname${count.index}" type="checkbox" value="${item.get("name")}" onchange="valueChanged(${count.index})"> ${item.get("name")} </td>
+                                        <td><input id="q${count.index}" name="quantity${count.index}" type="text" value="0" style="visibility:hidden"></td>
+                                    </tr>
+                                </c:forEach>
+
+                                <script>
+                                    function valueChanged(a) {
+                                        let cb = document.getElementById("q"+a);
+                                        if(cb.style.visibility == "hidden")
+                                            cb.style.visibility = "visible";
+                                        else
+                                            cb.style.visibility = "hidden";
+                                    }
+                                    function myFunction() {
+                                        var input, filter, table, tr, td, i, txtValue;
+                                        input = document.getElementById("myInput");
+                                        filter = input.value.toUpperCase();
+                                        table = document.getElementById("myTable");
+                                        tr = table.getElementsByTagName("tr");
+                                        for (i = 0; i < tr.length; i++) {
+                                            td = tr[i].getElementsByTagName("td")[0];
+                                            if (td) {
+                                                txtValue = td.textContent || td.innerText;
+                                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                                    tr[i].style.display = "";
+                                                } else {
+                                                    tr[i].style.display = "none";
+                                                }
+                                            }
+                                        }
+                                    }
+                                </script>
+                                </tbody>
+                            </table>
+                            <!--<div class="form-check mb-2 mr-sm-2">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> Remember me
+                                </label>
+                            </div> -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+</body>
+</html>
