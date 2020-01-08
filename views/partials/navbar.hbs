@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .sidenav {
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: 1;
+        top: 51px;
+        left: 0;
+        background-color: rgb(210,230,240);
+        overflow-x: hidden;
+        padding-top: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .mainMenu {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: rgb(41,102,169);
+        display: block;
+    }
+
+    .subMenu{
+
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 15px;
+        color: rgb(41,102,169);
+        display: block;
+
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+    .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+    }
+</style>
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+    <a class="mainMenu" href="home">Home</a>
+    <a class="mainMenu" href="displayUsers">Users</a>
+    <!--<a <c:if test="${param.pageName == 'addUser'}">href="#" </c:if> class="subMenu" href="addUser">Add User</a>-->
+    <!--<a <c:if test="${param.pageName == 'displayUsers'}">href="#" </c:if> class="subMenu" href="displayUsers">Display Users</a>-->
+    <a class="mainMenu" href="displayProducts">Inventory</a>
+    <!--<a <c:if test="${param.pageName == 'addProduct'}"> href="#" </c:if> class="subMenu" href="displayProducts">Add Product</a>
+    <a <c:if test="${param.pageName == 'editProduct'}">href="#" </c:if> class="subMenu" href="#">Edit Product</a>-->
+    <a class="mainMenu" href="sendMail">Send Mail</a>
+</div>
+</body>
+</html>
+

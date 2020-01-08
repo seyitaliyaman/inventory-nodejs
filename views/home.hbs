@@ -13,19 +13,12 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" >
-    <jsp:param name="home" value="locations" />
-</jsp:include>
-<c:out value="${requestScope.get('isAdmin')}"/>
+{{>header}}
 <div>
     <div class="container" >
-        <jsp:include page="navbar.jsp" >
-            <jsp:param name="pageName" value="locations" />
-        </jsp:include>
+        {{>navbar}}
     </div>
-    <div style="margin-left: 175px">
-        <c:out value="${requestScope.get('error')}"/>
-    </div>
+    
     <div class="container" style="margin-left: 160px;">
 
         <div class="row" style="margin-top: 10px">

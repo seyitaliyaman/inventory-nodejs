@@ -1,24 +1,38 @@
 require('./models/MongoDB');
 
-const express = require('express');
-const path = require('path');
-const expressHandlebars = require('express-handlebars');
-const bodyParser = require('body-parser');
+var express = require('express');
+var path = require('path');
+var expressHandlebars = require('express-handlebars');
+var bodyParser = require('body-parser');
 
 
-const userController = require('./controllers/UserController');
+var userController = require('./controllers/UserController');
+var displayUsersController = require('./controllers/DisplayUsersController');
+var homeController = require('./controllers/HomeController');
+var loginController = require('./controllers/LoginController');
+var productController = require('./controllers/ProductController');
+var sendMailController = require('./controllers/SendMailController')
 
 
-const app = express();
+var app = express();
+
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/user',userController);
+app.use('/displayUsers',displayUsersController);
+app.use('/home',homeController);
+app.use('/login',loginController);
+app.use('/product',productController);
+app.use('/sendMail',sendMailController);
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
+expressHandlebars.partialsDir = __dirname+'/views/partials/';
 
 //View Engine Setup
 app.set('views',path.join(__dirname,'/views/'));
-app.engine('hbs',expressHandlebars());
+app.engine('hbs',expressHandlebars({ extname: '.hbs' }));
 app.set('view engine','hbs');
 
 const PORT = process.env.PORT || 4000;
