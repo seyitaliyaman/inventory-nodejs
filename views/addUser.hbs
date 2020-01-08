@@ -22,15 +22,11 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" >
-    <jsp:param name="pageName" value="addUser" />
-</jsp:include>
+{{>header}}
 <c:out value="${requestScope.get('isAdmin')}"/>
 <div class="container">
     <div class="head">
-        <jsp:include page="navbar.jsp">
-            <jsp:param name="pageName" value="addUser"/>
-        </jsp:include>
+        {{>navbar}}
     </div>
 
     <div style="margin: 100px;">

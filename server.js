@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use('/user',userController);
 app.use('/displayUsers',displayUsersController);
 app.use('/home',homeController);
-app.use('/login',loginController);
+app.use('/',loginController);
 app.use('/product',productController);
 app.use('/sendMail',sendMailController);
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));

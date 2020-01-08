@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
 
-
+router.get('/', (req, res) => {
+    res.render('addProduct', {
+        viewTitle: "Say Hello"
+    })
+});
 
 
 

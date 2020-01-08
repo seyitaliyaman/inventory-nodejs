@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 
 
 
-
+router.get('/', (req, res) => {
+    res.render('index', {
+        viewTitle: "Say Hello"
+    })
+});
 
 
 module.exports = router;

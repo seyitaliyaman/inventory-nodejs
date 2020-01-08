@@ -10,16 +10,12 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" >
-    <jsp:param name="pageName" value="sendMail" />
-</jsp:include>
+{{>header}}
 <c:out value="${requestScope.get('isAdmin')}"/>
 
 <div class="container">
     <div class="head">
-        <jsp:include page="navbar.jsp">
-            <jsp:param name="pageName" value="sendMail"/>
-        </jsp:include>
+        {{>navbar}}
     </div>
 
     <div class="container" style="margin-left: 75px">
