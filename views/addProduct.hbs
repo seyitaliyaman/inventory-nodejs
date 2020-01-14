@@ -43,30 +43,29 @@
             </tr>
             </thead>
             <tbody>
+                {{#each productList}}
                     <c:forEach items="${requestScope.items}" var="itemval" varStatus="count">
                         <tr>
-                                <td>${itemval.name}</td>
-                                <td>${itemval.quantity}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.quantity}}</td>
 
 
                                 <td>
-                                    <c:forEach var="type" items="${itemval.pMap}">
-                                        <c:if test="${type.key != '_id'}">
-                                            <c:out value="${type.key}:${type.value}"/><br>
-                                        </c:if>
-                                    </c:forEach>
+                                    {{#each this.pMap}}
+                                    {{@key}} : {{this}}<br>
+                                    {{/each}}
                                 </td>
 
 
 
                             <td>
-                                <button type="button" data-toggle="modal" data-target="#edit-user${count.index}" style="width: 78px !important" class="btn btn-primary" >Edit</button>
-                                <button type="button" data-toggle="modal" data-target="#delete-user${count.index}" style="width: 78px !important" class="btn btn-danger">Delete</button>
+                                <button type="button" data-toggle="modal" data-target="#edit-user{{@index}}" style="width: 78px !important" class="btn btn-primary" >Edit</button>
+                                <button type="button" data-toggle="modal" data-target="#delete-user${{@index}}" style="width: 78px !important" class="btn btn-danger">Delete</button>
                             </td>
 
                         </tr>
                         <div>
-                            <div class="modal fade" id="edit-user${count.index}" role="dialog">
+                            <div class="modal fade" id="edit-user{{@index}}" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
                                     <div class="modal-content">
@@ -78,20 +77,20 @@
                                             <form action="displayProducts" method="post">
 
 
-                                                Product Name: <input value="${itemval.name}" type="text" name="productName" size="32" class="form-control validate" contenteditable="true">
-                                                Product Quantity: <input value="${itemval.quantity}" type="text" name="productQuantity" size="32" class="form-control validate" contenteditable="true">
-
+                                                Product Name: <input value="{{this.name}}" type="text" name="productName" size="32" class="form-control validate" contenteditable="true">
+                                                Product Quantity: <input value="{{this.quantity}}" type="text" name="productQuantity" size="32" class="form-control validate" contenteditable="true">
+                                                {{#each this.pMap}}
                                                 <c:forEach var="typec" items="${itemval.pMap}" varStatus="cnt">
 
 
-                                                    <input value="${count.index}" type="hidden" name="editedMap" size="32" readonly class="form-control validate">
+                                                    <input value="{{@../index}}" type="hidden" name="editedMap" size="32" readonly class="form-control validate">
                                                     <c:choose>
                                                         <c:when test="${typec.key == '_id'}">
                                                             <input value="${typec.value}" type="hidden" name="editedId" size="32" readonly class="form-control validate">
                                                         </c:when>
 
                                                         <c:otherwise>
-                                                            ${typec.key}: <input value="${typec.value}" type="text" name="prop${cnt.index}" size="32" class="form-control validate" contenteditable="true">
+                                                            {{@key}}: <input value="{{this}}" type="text" name="prop{{@index}}" size="32" class="form-control validate" contenteditable="true">
                                                         </c:otherwise>
 
                                                     </c:choose>
@@ -112,7 +111,7 @@
                         </div>
 
                         <div>
-                            <div class="modal fade" id="delete-user${count.index}" role="dialog">
+                            <div class="modal fade" id="delete-user{{@index}}" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
                                     <div class="modal-content">
@@ -124,7 +123,7 @@
                                             <h3>Are you sure?</h3>
                                         </div>
                                         <form action="displayProducts" method="post">
-                                            <c:forEach var="typec" items="${itemval.pMap}" >
+                                            <c:forEach var="typec" items="{{this.pMap}}" >
                                                 <c:if test="${typec.key == '_id'}">
                                                     <input value="${typec.value}" type="hidden" name="deletedId" size="32" readonly class="form-control validate">
                                                 </c:if>
