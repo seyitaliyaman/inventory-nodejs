@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 
 
 router.get('/', (req, res) => {
-    mailSender(req,res);
+    //mailSender(req,res);
     res.render('sendMail', {
         viewTitle: "Say Hello"
     })

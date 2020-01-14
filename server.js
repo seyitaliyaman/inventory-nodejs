@@ -18,7 +18,6 @@ var sendMailController = require('./controllers/SendMailController')
 var app = express();
 
 
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/user',userController);
@@ -30,6 +29,10 @@ app.use('/sendMail',sendMailController);
 
 
 expressHandlebars.partialsDir = __dirname+'/views/partials/';
+
+app.use(express.static(__dirname + '/public/'));
+
+
 
 //View Engine Setup
 app.set('views',path.join(__dirname,'/views/'));
