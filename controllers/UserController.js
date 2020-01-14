@@ -39,6 +39,17 @@ addUser = (req, res) => {
     user.isAdmin = req.body.item;
     //user.productList = req.body.productList;
 
+    var body = req.body;
+    var pnames ={}
+    
+    for(item in body){
+        console.log(item[0]);
+    }
+    console.log("pnames "+pnames)
+    
+    console.log(req.body);
+
+
     user.save((err , doc) =>{
         if(!err){
             console.log(doc);
