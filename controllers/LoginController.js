@@ -12,30 +12,40 @@ router.get('/', (req, res) => {
 
 router.post('/handle_login',(req,res)=>{
     
-    var username = req.body.username
+    var usern = req.body.username
     var password = req.body.password
-    if(login(username,password)){
-        res.redirect('home')
-    }
-    else{
+    if(usern==null || password == null){
         res.render('index',{statu:false})
+    }else{
+        User.findOne({username:usern},function(err,obj){
+            if(obj == null){
+                res.render('index',{statu:false})
+            }
+            else if(obj.password === password){
+                res.redirect('home')
+            }else{
+                res.render('index',{statu:false})
+            }
+            
+        })
     }
     
 })
 
 function login(usern,password){
+    var pos;
     if(usern==null || password == null){
-        return false;
+        pos = false;
     }
     User.findOne({username:usern},function(obj){
         if(obj == null){
-            return false;
+            pos = false;
         }
         if(obj.password === password){
-            return true
+            pos = true
         }
     })
-    return false;
+    return pos;
 }
 
 
