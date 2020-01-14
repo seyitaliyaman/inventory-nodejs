@@ -25,16 +25,7 @@ router.post('/deleteUser', (req,res)=>{
     });
 });
 
-router.get('/userList', (req,res)=>{
-    User.find((err,docs)=>{
-        if(!err){
-            console.log(docs)
-            res.render("displayUsers",{
-                userList : docs
-            })
-        }
-    })
-})
+
 
 
 addUser = (req, res) => {

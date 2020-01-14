@@ -2,14 +2,21 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const Users = mongoose.model('User');
+const User = mongoose.model('User');
 
 
-router.get('/', (req, res) => {
-    res.render('displayUsers', {
-        viewTitle: "Say Hello"
+
+
+router.get('/', (req,res)=>{
+    User.find((err,docs)=>{
+        if(!err){
+            console.log(docs)
+            res.render("displayUsers",{
+                userList : docs
+            })
+        }
     })
-});
+})
 
 
 module.exports = router;
