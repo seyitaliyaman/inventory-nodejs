@@ -5,7 +5,6 @@ const nodemailer = require('nodemailer');
 var User = mongoose.model('User');
 
 router.get('/', (req, res) => {
-<<<<<<< HEAD
 
     User.find({},{'email' : ''},(err, docs)=>{
         if(!err){
@@ -14,11 +13,6 @@ router.get('/', (req, res) => {
                 viewTitle: "Say Hello"
             })
         }
-=======
-    //mailSender(req,res);
-    res.render('sendMail', {
-        viewTitle: "Say Hello"
->>>>>>> f5a7a4d63eb8951e0f66f11dfe733ff77f5b15b1
     })
 
     
