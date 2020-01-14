@@ -1,5 +1,5 @@
-
 <html>
+
 <head>
     <title>Send Mail</title>
     <meta charset="utf-8">
@@ -8,82 +8,72 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-{{>header}}
-<c:out value="${requestScope.get('isAdmin')}"/>
+    {{>header}}
+    <c:out value="${requestScope.get('isAdmin')}" />
 
-<div class="container">
-    <div class="head">
-        {{>navbar}}
-    </div>
+    <div class="container">
+        <div class="head">
+            {{>navbar}}
+        </div>
 
-    <div class="container" style="margin-left: 75px">
-        <form action="sendMail" method="post">
-            <div class="form-group row">
-                <label for="adminEmail" class="col-sm-2 col-form-label">To</label>
-                <div class="col-sm-10">
-                    <c:choose>
-                        <c:when test="${sessionScope.isAdmin}">
-                            <select id="adminEmail" name="adminMail">
-                                <c:forEach items="${requestScope.allMailList}" var="allMail">
-                                    <option>
-                                            ${allMail}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </c:when>
-                        <c:otherwise>
-                            <select id="adminEmail" name="adminMail">
-                                <c:forEach items="${requestScope.adminMailList}" var="adminMail">
-                                    <option>
-                                            ${adminMail}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </c:otherwise>
-                    </c:choose>
+        <div class="container" style="margin-left: 75px">
+            <form action="/sendMail" method="post">
+                <div class="form-group row">
+                    <label for="adminEmail" class="col-sm-2 col-form-label">To</label>
+                    <div class="col-sm-10">
 
+                        <select id="adminEmail" name="adminMail">
+                            {{#each mailList}}
+                            <option>
+                                {{this.email}}
+                            </option>
+                            {{/each}}
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail" class="col-sm-2 col-form-label">From</label>
-                <div class="col-sm-10">
-                    <input name="userMail" type="text" readonly class="form-control-plaintext" id="userEmail" value="${requestScope.userMail}">
+                <div class="form-group row">
+                    <label for="userEmail" class="col-sm-2 col-form-label">From</label>
+                    <div class="col-sm-10">
+                        <input name="userMail" type="text" readonly class="form-control-plaintext" id="userEmail"
+                            value="seyitaliyaman@gmail.com">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="mailSubject" class="col-sm-2 col-form-label">Subject</label>
-                <div class="col-sm-10">
-                    <input name="mailSubject" type="text" class="form-control-plaintext" id="mailSubject">
+                <div class="form-group row">
+                    <label for="mailSubject" class="col-sm-2 col-form-label">Subject</label>
+                    <div class="col-sm-10">
+                        <input name="mailSubject" type="text" class="form-control-plaintext" id="mailSubject">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="mPassword" class="col-sm-2 col-form-label">Mail Password</label>
-                <div class="col-sm-10">
-                    <input name="mailPassword" type="password" class="form-control-plaintext" id="mPassword">
+                <div class="form-group row">
+                    <label for="mPassword" class="col-sm-2 col-form-label">Mail Password</label>
+                    <div class="col-sm-10">
+                        <input name="mailPassword" type="password" class="form-control-plaintext" id="mPassword">
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Mail</label>
-                <textarea name="mail" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Mail</label>
+                    <textarea name="mail" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary mb-2">Send Mail</button>
+                <button type="submit" class="btn btn-primary mb-2">Send Mail</button>
 
-        </form>
+            </form>
+
+
+        </div>
+
+
 
 
     </div>
-
-
-
-
-</div>
 
 </body>
+
 </html>
