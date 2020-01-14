@@ -6,19 +6,10 @@ const Product = mongoose.model('Product');
 
 
 router.get('/', (req, res) => {
-    //addProduct();
-    res.render('addProduct');
-    /*res.render('addProduct', {
-        viewTitle: "Say Hello"
-    })**/
+    getProductList(req,res)
 });
 
-router.get('/productList',(req,res)=>{
-    getProductList(req,res)
-    res.render('addProduct',{
-        viewTitle : "Product List"
-    })
-})
+
 
 router.post('/addProduct', (req,res)=>{
     console.log(req.body);
@@ -48,8 +39,8 @@ router.post('/addProduct', (req,res)=>{
 getProductList = (req,res)=>{
     Product.find((err,docs)=>{
         if(!err){
-            console.log(docs)
-            res.render('product',{
+            console.log(docs[0])
+            res.render('addProduct',{
                 productList : docs
             })
         }

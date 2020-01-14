@@ -45,114 +45,110 @@
                 </thead>
                 <tbody>
                     {{#each productList}}
-                        <tr>
-                            <td>{{this.name}}</td>
-                            <td>{{this.quantity}}</td>
-
-
-                            <td>
-                                {{#each this.pMap}}
-                                {{@key}} : {{this}}<br>
-                                {{/each}}
-                            </td>
-
-
-
-                            <td>
-                                <button type="button" data-toggle="modal" data-target="#edit-user{{@index}}"
-                                    style="width: 78px !important" class="btn btn-primary">Edit</button>
-                                <button type="button" data-toggle="modal" data-target="#delete-user${{@index}}"
-                                    style="width: 78px !important" class="btn btn-danger">Delete</button>
-                            </td>
-
-                        </tr>
-                        <div>
-                            <div class="modal fade" id="edit-user{{@index}}" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Modal Header</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="displayProducts" method="post">
-
-
-                                                Product Name: <input value="{{this.name}}" type="text"
-                                                    name="productName" size="32" class="form-control validate"
-                                                    contenteditable="true">
-                                                Product Quantity: <input value="{{this.quantity}}" type="text"
-                                                    name="productQuantity" size="32" class="form-control validate"
-                                                    contenteditable="true">
-                                                {{#each this.pMap}}
-                                                <c:forEach var="typec" items="${itemval.pMap}" varStatus="cnt">
-
-
-                                                    <input value="{{@../index}}" type="hidden" name="editedMap"
-                                                        size="32" readonly class="form-control validate">
-                                                    <c:choose>
-                                                        <c:when test="${typec.key == '_id'}">
-                                                            <input value="${typec.value}" type="hidden" name="editedId"
-                                                                size="32" readonly class="form-control validate">
-                                                        </c:when>
-
-                                                        <c:otherwise>
-                                                            {{@key}}: <input value="{{this}}" type="text"
-                                                                name="prop{{@index}}" size="32"
-                                                                class="form-control validate" contenteditable="true">
-                                                        </c:otherwise>
-
-                                                    </c:choose>
-
-                                                </c:forEach>
-                                                {{/each}}
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <input type="submit" value="Save changes" class="btn btn-primary">
-                                                </div>
-                                            </form>
-                                        </div>
-
+                    
+                    <tr>
+                        {{#each this}}
+                        <td>{{this.name}}</td>
+                        <td>{{this.quantity}}</td>
+                        {{/each}}
+                        <td>
+                            <button type="button" data-toggle="modal" data-target="#edit-user{{@index}}"
+                                style="width: 78px !important" class="btn btn-primary">Edit</button>
+                            <button type="button" data-toggle="modal" data-target="#delete-user${{@index}}"
+                                style="width: 78px !important" class="btn btn-danger">Delete</button>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                    
+                    <div>
+                        <div class="modal fade" id="edit-user{{@index}}" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modal Header</h4>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="modal fade" id="delete-user{{@index}}" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Delete User</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h3>Are you sure?</h3>
-                                        </div>
+                                    <div class="modal-body">
                                         <form action="displayProducts" method="post">
-                                            <c:forEach var="typec" items="{{this.pMap}}">
-                                                <c:if test="${typec.key == '_id'}">
-                                                    <input value="${typec.value}" type="hidden" name="deletedId"
-                                                        size="32" readonly class="form-control validate">
-                                                </c:if>
+
+
+                                            Product Name: <input value="{{this.name}}" type="text" name="productName"
+                                                size="32" class="form-control validate" contenteditable="true">
+                                            Product Quantity: <input value="{{this.quantity}}" type="text"
+                                                name="productQuantity" size="32" class="form-control validate"
+                                                contenteditable="true">
+                                            {{#each this.pMap}}
+                                            <c:forEach var="typec" items="${itemval.pMap}" varStatus="cnt">
+
+
+                                                <input value="{{@../index}}" type="hidden" name="editedMap" size="32"
+                                                    readonly class="form-control validate">
+                                                <c:choose>
+                                                    <c:when test="${typec.key == '_id'}">
+                                                        <input value="${typec.value}" type="hidden" name="editedId"
+                                                            size="32" readonly class="form-control validate">
+                                                    </c:when>
+
+                                                    <c:otherwise>
+                                                        {{@key}}: <input value="{{this}}" type="text"
+                                                            name="prop{{@index}}" size="32"
+                                                            class="form-control validate" contenteditable="true">
+                                                    </c:otherwise>
+
+                                                </c:choose>
+
                                             </c:forEach>
+                                            {{/each}}
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Dismiss</button>
-                                                <input type="submit" value="Delete" class="btn btn-primary">
+                                                    data-dismiss="modal">Close</button>
+                                                <input type="submit" value="Save changes" class="btn btn-primary">
                                             </div>
                                         </form>
-
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                        {{/each}}
+                    </div>
+
+                    <div>
+                        <div class="modal fade" id="delete-user{{@index}}" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Delete User</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>Are you sure?</h3>
+                                    </div>
+                                    <form action="displayProducts" method="post">
+                                        <c:forEach var="typec" items="{{this.pMap}}">
+                                            <c:if test="${typec.key == '_id'}">
+                                                <input value="${typec.value}" type="hidden" name="deletedId" size="32"
+                                                    readonly class="form-control validate">
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Dismiss</button>
+                                            <input type="submit" value="Delete" class="btn btn-primary">
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{/each}}
                 </tbody>
             </table>
 
