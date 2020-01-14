@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var expressHandlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
+var nodemailer = require('nodemailer');
 
 
 var userController = require('./controllers/UserController');
@@ -26,7 +27,7 @@ app.use('/home',homeController);
 app.use('/',loginController);
 app.use('/product',productController);
 app.use('/sendMail',sendMailController);
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 
 expressHandlebars.partialsDir = __dirname+'/views/partials/';
 
