@@ -1,16 +1,8 @@
 const mongoose = require('mongoose');
+Schema=mongoose.Schema;
 
-var productSchema = new mongoose.Schema({
-    
-    name:{
-        type: String,
-        required: 'This field is required.'
-    },
+var productSchema = new Schema({product: Schema.Types.Mixed},{strict: false});
 
-    quantity: {
-        type: String,
-        required: 'This field is required.'
-    }
-})
+
 
 mongoose.model('Product',productSchema);

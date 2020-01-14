@@ -5,6 +5,10 @@ const nodemailer = require('nodemailer');
 var User = mongoose.model('User');
 
 router.get('/', (req, res) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 11fd06c5f2dcd2ea614c26c36e8b2d0f45b63887
     User.find({},{'email' : ''},(err, docs)=>{
         if(!err){
             res.render('sendMail', {
