@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Products - Inventory Tracker</title>
     <meta charset="utf-8">
@@ -13,54 +14,55 @@
 
             var div = document.getElementById('new_chq');
             console.log();
-            div.innerHTML = div.innerHTML+'<div class=col-md-3>' +
-                '<input type="text" name="key-'+index+'" class="form-control validate"></div>' +
-                '<div class="col-md-9"><input type="text" name="value-'+index+'" class="form-control validate"><br>' +
+            div.innerHTML = div.innerHTML + '<div class=col-md-3>' +
+                '<input type="text" name="key-' + index + '" class="form-control validate"></div>' +
+                '<div class="col-md-9"><input type="text" name="value-' + index + '" class="form-control validate"><br>' +
                 '</div>'
-            index = index+1;
+            index = index + 1;
             console.log(index);
         }
     </script>
 </head>
+
 <body>
-{{>header}}
-<c:out value="${requestScope.get('isAdmin')}"/>
-<div class="container">
-    <div class="head">
-        {{>navbar}}
-    </div>
+    {{>header}}
+    <div class="container">
+        <div class="head">
+            {{>navbar}}
+        </div>
 
 
 
-    <div class="container" style="position: absolute; left: 150px;">
+        <div class="container" style="position: absolute; left: 150px;">
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Product Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Attributes</th>
-            </tr>
-            </thead>
-            <tbody>
-                {{#each productList}}
-                    <c:forEach items="${requestScope.items}" var="itemval" varStatus="count">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Attributes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each productList}}
                         <tr>
-                                <td>{{this.name}}</td>
-                                <td>{{this.quantity}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.quantity}}</td>
 
 
-                                <td>
-                                    {{#each this.pMap}}
-                                    {{@key}} : {{this}}<br>
-                                    {{/each}}
-                                </td>
+                            <td>
+                                {{#each this.pMap}}
+                                {{@key}} : {{this}}<br>
+                                {{/each}}
+                            </td>
 
 
 
                             <td>
-                                <button type="button" data-toggle="modal" data-target="#edit-user{{@index}}" style="width: 78px !important" class="btn btn-primary" >Edit</button>
-                                <button type="button" data-toggle="modal" data-target="#delete-user${{@index}}" style="width: 78px !important" class="btn btn-danger">Delete</button>
+                                <button type="button" data-toggle="modal" data-target="#edit-user{{@index}}"
+                                    style="width: 78px !important" class="btn btn-primary">Edit</button>
+                                <button type="button" data-toggle="modal" data-target="#delete-user${{@index}}"
+                                    style="width: 78px !important" class="btn btn-danger">Delete</button>
                             </td>
 
                         </tr>
@@ -77,29 +79,38 @@
                                             <form action="displayProducts" method="post">
 
 
-                                                Product Name: <input value="{{this.name}}" type="text" name="productName" size="32" class="form-control validate" contenteditable="true">
-                                                Product Quantity: <input value="{{this.quantity}}" type="text" name="productQuantity" size="32" class="form-control validate" contenteditable="true">
+                                                Product Name: <input value="{{this.name}}" type="text"
+                                                    name="productName" size="32" class="form-control validate"
+                                                    contenteditable="true">
+                                                Product Quantity: <input value="{{this.quantity}}" type="text"
+                                                    name="productQuantity" size="32" class="form-control validate"
+                                                    contenteditable="true">
                                                 {{#each this.pMap}}
                                                 <c:forEach var="typec" items="${itemval.pMap}" varStatus="cnt">
 
 
-                                                    <input value="{{@../index}}" type="hidden" name="editedMap" size="32" readonly class="form-control validate">
+                                                    <input value="{{@../index}}" type="hidden" name="editedMap"
+                                                        size="32" readonly class="form-control validate">
                                                     <c:choose>
                                                         <c:when test="${typec.key == '_id'}">
-                                                            <input value="${typec.value}" type="hidden" name="editedId" size="32" readonly class="form-control validate">
+                                                            <input value="${typec.value}" type="hidden" name="editedId"
+                                                                size="32" readonly class="form-control validate">
                                                         </c:when>
 
                                                         <c:otherwise>
-                                                            {{@key}}: <input value="{{this}}" type="text" name="prop{{@index}}" size="32" class="form-control validate" contenteditable="true">
+                                                            {{@key}}: <input value="{{this}}" type="text"
+                                                                name="prop{{@index}}" size="32"
+                                                                class="form-control validate" contenteditable="true">
                                                         </c:otherwise>
 
                                                     </c:choose>
 
                                                 </c:forEach>
-
+                                                {{/each}}
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
                                                     <input type="submit" value="Save changes" class="btn btn-primary">
                                                 </div>
                                             </form>
@@ -123,14 +134,16 @@
                                             <h3>Are you sure?</h3>
                                         </div>
                                         <form action="displayProducts" method="post">
-                                            <c:forEach var="typec" items="{{this.pMap}}" >
+                                            <c:forEach var="typec" items="{{this.pMap}}">
                                                 <c:if test="${typec.key == '_id'}">
-                                                    <input value="${typec.value}" type="hidden" name="deletedId" size="32" readonly class="form-control validate">
+                                                    <input value="${typec.value}" type="hidden" name="deletedId"
+                                                        size="32" readonly class="form-control validate">
                                                 </c:if>
                                             </c:forEach>
 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Dismiss</button>
                                                 <input type="submit" value="Delete" class="btn btn-primary">
                                             </div>
                                         </form>
@@ -139,57 +152,58 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                        {{/each}}
+                </tbody>
+            </table>
 
-            </tbody>
-        </table>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addProductModal">Add
+                Product</button>
 
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+            <div class="modal fade" id="addProductModal" role="dialog">
+                <div class="modal-dialog">
 
-        <div class="modal fade" id="addProductModal" role="dialog">
-            <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Product</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="product/addProduct" method="post">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Product</h4>
+                                <div id="new_chq">
+                                    <div class="col-md-3">
+                                        <label class="mr-sm-2">Name: </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" name="name" class="form-control validate"><br>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="mr-sm-2">Quantity: </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" name="quantity" class="form-control validate"><br>
+                                    </div>
+                                </div>
+
+                                <button type="button" onclick="add()" style="margin: 10px;">Add Attribute</button>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form action="product/addProduct" method="post">
 
-                            <div id="new_chq">
-                                <div class="col-md-3">
-                                    <label class="mr-sm-2">Name: </label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" name="name" class="form-control validate"><br>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="mr-sm-2">Quantity: </label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" name="quantity" class="form-control validate"><br>
-                                </div>
-                            </div>
-
-                            <button type="button" onclick="add()" style="margin: 10px;">Add Attribute</button>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-
-                    </div>
                 </div>
-
             </div>
+
         </div>
 
+
     </div>
-
-
-</div>
 </body>
+
 </html>
