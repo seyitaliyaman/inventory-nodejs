@@ -1,7 +1,18 @@
 const mongoose = require('mongoose');
-Schema=mongoose.Schema;
 
-var productSchema = new Schema({product: Schema.Types.Mixed},{strict: false});
+
+var productSchema = new mongoose.Schema({
+
+    name: {
+        type: String,
+    },
+    quantity:{
+        type: String,
+    },
+    attributeList:{
+        type:Object,
+    }
+});
 
 
 
