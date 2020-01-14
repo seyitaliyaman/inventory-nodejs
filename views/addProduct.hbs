@@ -75,19 +75,19 @@
                                         <h4 class="modal-title">Modal Header</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="displayProducts" method="post">
+                                        <form action="product/updateProduct" method="post">
 
 
-                                            Product Name: <input value="{{this.name}}" type="text" name="productName"
+                                            Product Name: <input value="{{this.name}}" type="text" name="name"
                                                 size="32" class="form-control validate" contenteditable="true">
                                             Product Quantity: <input value="{{this.quantity}}" type="text"
-                                                name="productQuantity" size="32" class="form-control validate"
+                                                name="quantity" size="32" class="form-control validate"
                                                 contenteditable="true">
                                             <input value="{{this._id}}" type="hidden" name="editedId" size="32" readonly
                                                 class="form-control validate">
                                             {{#each this.attributeList}}
 
-                                            {{@key}}: <input value="{{this}}" type="text" name="prop{{@index}}"
+                                            {{@key}}: <input value="{{this}}" type="text" name="{{@key}}"
                                                 size="32" class="form-control validate" contenteditable="true">
 
                                             {{/each}}
@@ -117,7 +117,7 @@
                                     <div class="modal-body">
                                         <h3>Are you sure?</h3>
                                     </div>
-                                    <form action="displayProducts" method="post">
+                                    <form action="product/deleteProduct" method="post">
                                         <input value="{{this._id}}" type="hidden" name="deletedId" size="32" readonly
                                             class="form-control validate">
                                         <div class="modal-footer">

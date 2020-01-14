@@ -20,9 +20,7 @@ router.post('/updateUser', (req,res)=>{
 
 router.post('/deleteUser', (req,res)=>{
     deleteUser(req,res);
-    res.render('home',{
-
-    });
+    res.redirect('/home')
 });
 
 
@@ -71,9 +69,9 @@ updateUser = (req, res) => {
 }
 
 deleteUser = (req, res) =>{
-    User.findByIdAndRemove(req.body._id,(err,doc)=>{
+    User.findByIdAndRemove(req.body.deletedId,(err,doc)=>{
         if(!err){
-            console.log(doc)
+           
         }else{
             console.log(err)
         }
