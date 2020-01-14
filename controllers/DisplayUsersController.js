@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 
-
+var userCont = require('./UserController');
 
 
 router.get('/', (req,res)=>{
@@ -17,6 +17,7 @@ router.get('/', (req,res)=>{
         }
     })
 })
+
 
 
 module.exports = router;

@@ -34,6 +34,7 @@ app.use(express.static(__dirname + '/public/'));
 
 
 
+
 //View Engine Setup
 app.set('views',path.join(__dirname,'/views/'));
 app.engine('hbs',expressHandlebars({ extname: '.hbs' }));
