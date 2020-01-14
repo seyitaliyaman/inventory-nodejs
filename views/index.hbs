@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Inventory Tracker</title>
-  </head>
-  <body>
+
+<head>
+  <title>Inventory Tracker</title>
+</head>
+
+<body>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
 
-  <link rel="stylesheet" href="stylesheets/css/Index.css"/>
+
+  <link rel="stylesheet" href="stylesheets/css/Index.css" />
   <script src="Script/Index.js"></script>
 
   <div class="login-reg-panel">
@@ -28,14 +30,14 @@
     </div>-->
 
     <div class="white-panel">
-      <div class="login-show">
+      <div id="loginForm" class="login-show">
         <h2>LOGIN</h2>
         <form action="handle_login" method="post">
           Username: <input type="text" name="username" size="32"><br>
           Password: <input type="password" name="password" size="32"><br>
           <input type="submit" value="send">
         </form>
-        <a href="">Forgot password?</a>
+        <!--<a href="">Forgot password?</a>-->
       </div>
       <!--<div class="register-show">
         <h2>REGISTER</h2>
@@ -57,5 +59,20 @@
   %>
   <p> Your session id: <%= id %> </p>
 
-  </body>
+  <script>
+    var loginForm = document.getElementById('loginForm')
+    var stat = {{ statu }}
+    if(stat!=undefined){
+      loginForm.innerHTML = loginForm.innerHTML+'Username or Password is incorrect'
+    }
+    
+    /*function get(name) {
+      if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+        return decodeURIComponent(name[1]);
+    }*/
+
+  </script>
+
+</body>
+
 </html>
