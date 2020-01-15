@@ -8,14 +8,34 @@ router.get('/', (req, res) => {
     if (req.session.username == null || req.session.username == undefined) {
         res.redirect('/')
     }else{
-        User.find({},{'email' : ''},(err, docs)=>{
-            if(!err){
-                res.render('sendMail', {
-                    mailList : docs,
-                    viewTitle: "Say Hello"
-                })
-            }
-        })
+
+        if(req.session.admin){
+            User.find({'email': {$ne : req.session.email}},{'email' : 1, '_id': 0},(err, docs)=>{
+                if(!err){
+                    console.log("gelen mail adresleri adminee")
+                    console.log(docs)
+                    res.render('sendMail', {
+                        mailList : docs,
+                        userMail : req.session.email,
+                        viewTitle: "Say Hello"
+                    })
+                }
+            })
+        }else{
+            User.find({'isAdmin': true},{'email' : 1, '_id': 0},(err, docs)=>{
+                if(!err){
+                    console.log("gelen mail adresleri")
+                    console.log(docs)
+                    res.render('sendMail', {
+                        mailList : docs,
+                        userMail : req.session.email,
+                        viewTitle: "Say Hello"
+                    })
+                }
+            })
+        }
+
+        
     }
     
     

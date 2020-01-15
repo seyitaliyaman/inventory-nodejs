@@ -42,7 +42,7 @@ router.post('/addProduct', (req,res)=>{
       i++
     }
     console.log(obj)*/
-    if(req.session.isAdmin){
+    if(req.session.admin){
         addProduct(req,res);
     }
     

@@ -26,7 +26,8 @@ router.post('/handle_login',(req,res)=>{
             else if(obj.password === password){
                 req.session.admin=obj.isAdmin
                 req.session.username = obj.username
-                res.redirect('/home')
+                req.session.email = obj.email
+                res.render('home');
             }else{
                 res.render('index',{statu:false})
             }
