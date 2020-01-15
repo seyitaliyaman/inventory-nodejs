@@ -15,12 +15,17 @@ router.post('/addUser', (req,res)=>{
 });
 
 router.post('/updateUser', (req,res)=>{
+<<<<<<< HEAD
     if(req.session.isAdmin){
         updateUser(req,res);
     }
     res.render('home',{
         text:'If you are not admin you cannot change'
     });
+=======
+    updateUser(req,res);
+    res.redirect('/home');
+>>>>>>> 56b616070dce4fa75f551be6bbbb471b1b780994
 });
 
 router.post('/deleteUser', (req,res)=>{
@@ -47,6 +52,28 @@ addUser = (req, res) => {
     user.isAdmin = req.body.item;
     //user.productList = req.body.productList;
 
+
+    var body = req.body;
+    var arr ={}
+    var products = {}
+    for(p in body){
+        if(p != 'firstName' && p != 'lastName' &&  p != 'username' && p != 'phone' && p !='email' && p!='password' && p!= 'item' && body[p] != '0'){
+            arr[p] = body[p];
+        }else if(body[p] != '0'){
+            products[p] = body[p]
+        }
+        
+    }
+    console.log(arr);
+
+    user.productList = arr;
+
+    //products['productList'] = arr
+
+    //console.log(products);
+
+
+
     user.save((err , doc) =>{
         if(!err){
             console.log(doc);
@@ -58,7 +85,37 @@ addUser = (req, res) => {
 };
 
 updateUser = (req, res) => {
-    User.findOneAndUpdate({_id: req.body._id},req.body,{new: true},(err,doc)=>{
+
+    var body = req.body;
+    var trial = {}
+    var i = 0;
+    for(key in body){
+        if(key == 'name'){
+            //obj['name'] = body[key]
+        }else if(key == 'lastname'){
+            //obj['quantity'] = body[key] 
+        }else if(key == 'phone'){
+  
+        }else if(key =='email'){
+
+        }else if(key == '_id'){
+            
+        }
+        else{
+          trial[key] = body[key]
+        }
+        i++
+    }
+
+    var updated = {
+        name : req.body.name,
+        surname : req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email,
+        productList : trial
+    }
+
+    User.findOneAndUpdate({_id: req.body._id},updated,{new: true},(err,doc)=>{
         if(!err){
             console.log(doc);
         }else{

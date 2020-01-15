@@ -53,7 +53,22 @@ router.post('/addProduct', (req,res)=>{
 getProductList = (req,res)=>{
     Product.find((err,docs)=>{
         if(!err){
-            console.log(docs[0])
+            console.log(docs)
+            var ans = []
+            for(doc in docs){
+                var sel = []
+                var str = ''
+                for(key in doc){
+                    if(key == 'name'||key == 'quantity'){
+                        sel.push(doc[key])
+                    }else if(!(key == '_id' || key == '__v')){
+                        str = str+key+": "+doc[key]+"\n";
+                    }
+                }
+                sel.push(str)
+                ans.push(sel)
+            }
+            console.log(ans)
             res.render('addProduct',{
                 productList : docs
             })

@@ -80,17 +80,16 @@
                                         </thead>
 
                                         <tbody>
-                                            <c:forEach items="${requestScope.productList}" var="item" varStatus="count">
+                                            {{#each productList}}
                                                 <tr class="product">
-
-                                                    <td><input id="cb${count.index}" name="pname${count.index}"
-                                                            type="checkbox" value="${item.get(" name")}"
-                                                            onchange="valueChanged(${count.index})"> ${item.get("name")}
+                                                    <td><input id="cb{{@index}}" name=""
+                                                            type="checkbox" value=""
+                                                            onchange="valueChanged({{@index}})"> {{this.name}}
                                                     </td>
-                                                    <td><input id="q${count.index}" name="quantity${count.index}"
+                                                    <td><input id="q{{@index}}" name="{{this.name}}"
                                                             type="text" value="0" style="visibility:hidden"></td>
                                                 </tr>
-                                            </c:forEach>
+                                            {{/each}}
 
                                             <script>
 
@@ -187,9 +186,8 @@
                                         <h4 class="modal-title">Modal Header</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="displayUsers" method="post">
-                                            <input value="${count.index}" name="editId" hidden>
-                                            <input value="{{this._id}}" type="hidden" name="id" size="32" readonly
+                                        <form action="/user/updateUser" method="post">
+                                            <input value="{{this._id}}" type="hidden" name="_id" size="32" readonly
                                                 class="form-control validate">
                                             First Name: <input value="{{this.name}}" type="text" name="name" size="32"
                                                 class="form-control validate" contenteditable="true"><br>
@@ -200,8 +198,7 @@
                                             E-Mail: <input value="{{this.email}}" type="text" name="email" size="32"
                                                 class="form-control validate"><br>
                                             {{#each this.productList}}
-                                            <input hidden value="${uProd.key}" name="prodKey${cnt}">
-                                            {{@key}} : <input value="{{this}}" type="number" name="{{@index}}" size="32"
+                                            {{@key}} : <input value="{{this}}" type="number" name="{{@key}}" size="32"
                                                 class="form-control validate"><br>
                                             {{/each}}
 
