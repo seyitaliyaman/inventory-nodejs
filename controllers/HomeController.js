@@ -9,18 +9,23 @@ var productCount;
 
 router.get('/', (req, res) => {
     User.countDocuments(function(err, c) {
+        
         userCount = c;
+        console.log(req.session)
+        Product.countDocuments(function(err,c){
+            productCount = c;
+            res.render('home', {
+                viewTitle: "Say Hello",
+                usrCount : userCount,
+                prodCount : productCount,
+            })
+       })
+        
    });
 
-   Product.countDocuments(function(err,c){
-        productCount = c;
-   })
+   
 
-    res.render('home', {
-        viewTitle: "Say Hello",
-        usrCount : userCount,
-        prodCount : productCount,
-    })
+    
 });
 
 

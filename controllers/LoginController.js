@@ -5,7 +5,9 @@ var User = mongoose.model('User');
 
 
 router.get('/', (req, res) => {
+    
     res.render('index', {
+        session: req.session,
         viewTitle: "Say Hello"
     })
 });
@@ -22,7 +24,9 @@ router.post('/handle_login',(req,res)=>{
                 res.render('index',{statu:false})
             }
             else if(obj.password === password){
-                res.redirect('home')
+                req.session.admin=obj.isAdmin
+                req.session.username = obj.username
+                res.redirect('/home')
             }else{
                 res.render('index',{statu:false})
             }

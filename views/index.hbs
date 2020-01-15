@@ -54,10 +54,8 @@
     Password: <input type="password" name="pwd" size="32"><br>
     <input type="submit" value="send">
   </form>-->
-  <%
-    String id = session.getId();
-  %>
-  <p> Your session id: <%= id %> </p>
+
+  <p>{{session}}</p>
 
   <script>
     var loginForm = document.getElementById('loginForm')

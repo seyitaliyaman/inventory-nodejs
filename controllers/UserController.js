@@ -8,20 +8,28 @@ var Product = mongoose.model('Product')
 router.post('/addUser', (req,res)=>{
     console.log("userc add user kısmına girdi");
     console.log(req.body.firstName);
-    addUser(req,res);
+    if(req.session.isAdmin){
+        addUser(req,res);
+    }
+    
 });
 
 router.post('/updateUser', (req,res)=>{
-    updateUser(req,res);
+    if(req.session.isAdmin){
+        updateUser(req,res);
+    }
     res.render('home',{
-
+        text:'If you are not admin you cannot change'
     });
 });
 
 router.post('/deleteUser', (req,res)=>{
-    deleteUser(req,res);
+    if(req.session.isAdmin){
+        deleteUser(req,res);
+    }
+    
     res.render('home',{
-
+        text:'If you are not admin you cannot change'
     });
 });
 

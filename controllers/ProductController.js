@@ -31,7 +31,10 @@ router.post('/addProduct', (req,res)=>{
       i++
     }
     console.log(obj)*/
-    addProduct(req,res);
+    if(req.session.isAdmin){
+        addProduct(req,res);
+    }
+    
     //res.redirect('/home');
 })
 
