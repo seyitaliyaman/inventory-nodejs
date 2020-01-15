@@ -6,7 +6,10 @@ const Product = mongoose.model('Product');
 
 
 router.get('/', (req, res) => {
-    getProductList(req,res)
+    if (req.session.username == null || req.session.username == undefined) {
+        res.redirect('/')
+    }else
+        getProductList(req,res)
 });
 
 router.post('/deleteProduct',(req,res)=>{

@@ -5,15 +5,19 @@ const nodemailer = require('nodemailer');
 var User = mongoose.model('User');
 
 router.get('/', (req, res) => {
-
-    User.find({},{'email' : ''},(err, docs)=>{
-        if(!err){
-            res.render('sendMail', {
-                mailList : docs,
-                viewTitle: "Say Hello"
-            })
-        }
-    })
+    if (req.session.username == null || req.session.username == undefined) {
+        res.redirect('/')
+    }else{
+        User.find({},{'email' : ''},(err, docs)=>{
+            if(!err){
+                res.render('sendMail', {
+                    mailList : docs,
+                    viewTitle: "Say Hello"
+                })
+            }
+        })
+    }
+    
     
 });
 

@@ -24,38 +24,12 @@ app.use(session({
 }))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/user',userController,function(req,res){
-    if(req.session.username == null || req.session.username == undefined)
-    {
-        res.redirect('/')
-    }
-});
-app.use('/displayUsers',displayUsersController,function(req,res){
-    if(req.session.username == null || req.session.username == undefined)
-    {
-        res.redirect('/')
-    }
-});
-app.use('/home',homeController,function(req,res){
-    console.log("DDD "+req.session.username)
-    if(req.session.username == null || req.session.username == undefined)
-    {
-        res.render('/')
-    }
-});
+app.use('/user',userController);
+app.use('/displayUsers',displayUsersController);
+app.use('/home',homeController);
 app.use('/',loginController);
-app.use('/product',productController,function(req,res){
-    if(req.session.username == null || req.session.username == undefined)
-    {
-        res.render('/')
-    }
-});
-app.use('/sendMail',sendMailController),function(req,res){
-    if(req.session.username == null || req.session.username == undefined)
-    {
-        res.render('/')
-    }
-};
+app.use('/product',productController);
+app.use('/sendMail',sendMailController);
 
 
 expressHandlebars.partialsDir = __dirname+'/views/partials/';

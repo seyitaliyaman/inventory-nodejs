@@ -8,7 +8,9 @@ var userCount;
 var productCount;
 
 router.get('/', (req, res) => {
-    User.countDocuments(function(err, c) {
+    if (req.session.username == null || req.session.username == undefined) {
+        res.redirect('/')
+    }else{User.countDocuments(function(err, c) {
         
         userCount = c;
         console.log(req.session)
@@ -21,7 +23,8 @@ router.get('/', (req, res) => {
             })
        })
         
-   });
+   });}
+    
 
    
 
