@@ -15,17 +15,12 @@ router.post('/addUser', (req,res)=>{
 });
 
 router.post('/updateUser', (req,res)=>{
-<<<<<<< HEAD
     if(req.session.isAdmin){
         updateUser(req,res);
     }
     res.render('home',{
         text:'If you are not admin you cannot change'
     });
-=======
-    updateUser(req,res);
-    res.redirect('/home');
->>>>>>> 56b616070dce4fa75f551be6bbbb471b1b780994
 });
 
 router.post('/deleteUser', (req,res)=>{
