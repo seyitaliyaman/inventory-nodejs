@@ -9,8 +9,14 @@ var userCount;
 var productCount;
 var visit;
 
+router.get('/logout',(req,res)=>{
+    req.session.username = null;
+    console.log("gelen req test")
+    res.redirect('/')
+})
+
 router.get('/', (req, res) => {
-    if (req.session.username == null || req.session.username == undefined) {
+    if (req.session.username==null || req.session.username == undefined) {
         res.redirect('/')
     }else{User.countDocuments(function(err, c) {
         
@@ -46,6 +52,10 @@ router.get('/', (req, res) => {
                         }
                     })
                 }
+                console.log("gelen count verileri")
+                console.log(userCount)
+                console.log(productCount)
+                console.log(visit)
                 res.render('home', {
                     viewTitle: "Say Hello",
                     usrCount : userCount,

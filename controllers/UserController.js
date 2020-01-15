@@ -13,9 +13,7 @@ router.post('/addUser', (req,res)=>{
     if(req.session.admin){
         addUser(req,res);
     }else{
-        res.render('home',{
-            text:'If you are not admin you cannot add'
-        });
+        res.redirect('/home')
     }
     
 });
@@ -25,9 +23,7 @@ router.post('/updateUser', (req,res)=>{
     if(req.session.admin){
         updateUser(req,res);
     }
-    res.render('home',{
-        text:'If you are not admin you cannot change'
-    });
+    res.redirect('/home')
 });
 
 router.post('/deleteUser', (req,res)=>{
@@ -35,9 +31,7 @@ router.post('/deleteUser', (req,res)=>{
         deleteUser(req,res);
     }
     
-    res.render('home',{
-        text:'If you are not admin you cannot change'
-    });
+    res.redirect('/home')
 });
 
 
