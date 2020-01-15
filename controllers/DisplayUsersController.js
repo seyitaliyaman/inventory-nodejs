@@ -15,20 +15,18 @@ router.get('/', (req, res) => {
                 res.redirect('/')
             } else {
                 console.log(docs)
-                res.render("displayUsers", {
-                    userList: docs
+                Product.find((err, prodocs) => {
+                    //console.log(prodocs)
+                    res.render("displayUsers", {
+                        userList: docs,
+                        productList: prodocs
+                    })
                 })
+
             }
 
         }
-        Product.find((err, prodocs) => {
-            //console.log(prodocs)
-
-            res.render("displayUsers", {
-                userList: userdocs,
-                productList: prodocs
-            })
-        })
+        
        
     })
 

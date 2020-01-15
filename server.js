@@ -22,6 +22,14 @@ app.use(session({
     resave:false,
     saveUninitialized:true
 }))
+
+
+app.use(function(req, res, next) {  
+    app.locals.expreq = req.session;
+    next();
+})
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/user',userController);
