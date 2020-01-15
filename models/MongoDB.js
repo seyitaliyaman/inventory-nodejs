@@ -11,4 +11,5 @@ mongoose.connect('mongodb://localhost:27017/InventoryTracker',
 
 require('./Product.model');
 require('./User.model');
+require('./Daily.model');
 

@@ -3,9 +3,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Product = mongoose.model('Product')
+var Daily = mongoose.model('Daily')
 
 var userCount;
 var productCount;
+var visit;
 
 router.get('/', (req, res) => {
     if (req.session.username == null || req.session.username == undefined) {
@@ -16,11 +18,43 @@ router.get('/', (req, res) => {
         console.log(req.session)
         Product.countDocuments(function(err,c){
             productCount = c;
-            res.render('home', {
-                viewTitle: "Say Hello",
-                usrCount : userCount,
-                prodCount : productCount,
+            var date = new Date()
+            var dt = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear()
+
+            Daily.findOne({date:dt},function(err,obj){
+
+                if(obj == null){
+                    let daily = new Daily();
+                    daily.date = dt;
+                    daily.count = 1;
+                    visit = 1;
+                    daily.save((err,docs)=>{
+                        if(!err){
+                            console.log(docs)
+                        }else{
+                            console.log(err);
+                        }
+                    })
+                }else{
+                    obj.count = obj.count+1;
+                    visit = obj.count;
+                    Daily.findByIdAndUpdate({date:dt},obj,{new: true},(err,doc)=>{
+                        if(!err){
+                            console.log(doc);
+                        }else{
+                            console.log(err);
+                        }
+                    })
+                }
+                res.render('home', {
+                    viewTitle: "Say Hello",
+                    usrCount : userCount,
+                    prodCount : productCount,
+                    dailyVisit : visit
+                })
+
             })
+            
        })
         
    });}
