@@ -12,10 +12,10 @@ router.get('/', (req, res) => {
 
     User.find((err, userdocs) => {
         if (!err) {
-            console.log(userdocs);
+            //console.log(userdocs);
         }
         Product.find((err, prodocs) => {
-            console.log(prodocs)
+            //console.log(prodocs)
 
             res.render("displayUsers", {
                 userList: userdocs,

@@ -13,9 +13,7 @@ router.post('/addUser', (req,res)=>{
 
 router.post('/updateUser', (req,res)=>{
     updateUser(req,res);
-    res.render('home',{
-
-    });
+    res.redirect('/home');
 });
 
 router.post('/deleteUser', (req,res)=>{
@@ -37,15 +35,26 @@ addUser = (req, res) => {
     user.isAdmin = req.body.item;
     //user.productList = req.body.productList;
 
+
     var body = req.body;
-    var pnames ={}
-    
-    for(item in body){
-        console.log(item[0]);
+    var arr ={}
+    var products = {}
+    for(p in body){
+        if(p != 'firstName' && p != 'lastName' &&  p != 'username' && p != 'phone' && p !='email' && p!='password' && p!= 'item' && body[p] != '0'){
+            arr[p] = body[p];
+        }else if(body[p] != '0'){
+            products[p] = body[p]
+        }
+        
     }
-    console.log("pnames "+pnames)
-    
-    console.log(req.body);
+    console.log(arr);
+
+    user.productList = arr;
+
+    //products['productList'] = arr
+
+    //console.log(products);
+
 
 
     user.save((err , doc) =>{
@@ -59,7 +68,37 @@ addUser = (req, res) => {
 };
 
 updateUser = (req, res) => {
-    User.findOneAndUpdate({_id: req.body._id},req.body,{new: true},(err,doc)=>{
+
+    var body = req.body;
+    var trial = {}
+    var i = 0;
+    for(key in body){
+        if(key == 'name'){
+            //obj['name'] = body[key]
+        }else if(key == 'lastname'){
+            //obj['quantity'] = body[key] 
+        }else if(key == 'phone'){
+  
+        }else if(key =='email'){
+
+        }else if(key == '_id'){
+            
+        }
+        else{
+          trial[key] = body[key]
+        }
+        i++
+    }
+
+    var updated = {
+        name : req.body.name,
+        surname : req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email,
+        productList : trial
+    }
+
+    User.findOneAndUpdate({_id: req.body._id},updated,{new: true},(err,doc)=>{
         if(!err){
             console.log(doc);
         }else{
